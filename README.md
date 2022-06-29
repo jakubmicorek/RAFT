@@ -24,8 +24,10 @@ or downloaded from [google drive](https://drive.google.com/drive/folders/1sWDsfu
 
 You can demo a trained model on a sequence of frames
 ```Shell
-python demo.py --model=models/raft-things.pth --path=demo-frames
-python demo.py --model=models/raft-things.pth --path=demo-frames-shanghaitech
+# old demo: python demo.py --model=models/raft-things.pth --path=demo-frames
+python demo.py models/raft-things.pth demo-frames-shanghaitech-testXXX --path_output=flow_outputs
+
+python demo.py models/raft-things.pth /mnt/data/anomaly_detection_datasets_preprocessed/shanghaitech/shanghaitech/testing/frames/01_0014 --path_output=/mnt/data/anomaly_detection_datasets_preprocessed/shanghaitech/shanghaitech_flow/testing/frames/01_0014
 ```
 
 ## Required Data
