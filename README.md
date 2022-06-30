@@ -15,6 +15,11 @@ conda activate raft
 conda install pytorch=1.6.0 torchvision=0.7.0 cudatoolkit=10.1 matplotlib tensorboard scipy opencv -c pytorch
 ```
 
+## Dataset Preparation
+Scripts with `00_*.py` calculates the RAFT flow for the respective datasets. Will save the memory intensive uv vectors into a separate `*_flow` folder.
+
+From the `*_flow` folder script `01_*.py` calculates the magnitues for every uv flow frame so script `02_*.py` can recalulate RGB images based on the max magnitude of the whole dataset which is saved to the `*_flow_rgb_recalculated` folder.
+
 ## Demos
 Pretrained models can be downloaded by running
 ```Shell
