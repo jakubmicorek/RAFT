@@ -16,10 +16,12 @@ from utils.utils import InputPadder
 from pathlib import Path
 
 
-DEVICE = 'cuda'
+DEVICE = 'cuda:0'
 
 def load_image(imfile):
     img = np.array(Image.open(imfile)).astype(np.uint8)
+    if len(img.shape) == 2:
+        img = np.stack([img, img, img]).transpose(1, 2, 0)
     img = torch.from_numpy(img).permute(2, 0, 1).float()
     return img[None].to(DEVICE)
 
@@ -36,8 +38,8 @@ def viz(img, flo):
     # plt.imshow(img_flo / 255.0)
     # plt.show()
 
-    cv2.imshow('image', img_flo[:, :, [2, 1, 0]] / 255.0)
-    cv2.waitKey(1)
+    # cv2.imshow('image', img_flo[:, :, [2, 1, 0]] / 255.0)
+    # cv2.waitKey(1)
     return flo[:, :, [2, 1, 0]]
 
 
@@ -51,6 +53,7 @@ def demo(args):
 
     with torch.no_grad():
         images = glob.glob(os.path.join(args.path, '*.png')) + \
+                 glob.glob(os.path.join(args.path, '*.tif')) + \
                  glob.glob(os.path.join(args.path, '*.jpg'))
         
         images = sorted(images)
